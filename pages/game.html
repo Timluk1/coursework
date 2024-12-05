@@ -8,18 +8,46 @@
 </head>
 <body>
     <div id="game">
-        <h1>Уровень: <span id="level">1</span></h1>
-        <div id="numbers"></div>
-        <div class="blocks">
-            <div id="even" class="block">
-                <h2>Четные</h2>
-            </div>
-            <div id="odd" class="block">
-                <h2>Нечетные</h2>
-            </div>
+        <div id="timer-container">
+            <h1>Уровень: <span id="level">1</span></h1>
+            <p>Оставшееся время: <span id="timer">30</span> сек</p>
         </div>
-        <button id="next-level">Следующий уровень</button>
-        <button id="restart">Начать заново</button> 
+        <div class="tasks">
+            <!-- Игра 1: Перетаскивание чисел -->
+            <div id="task-1" class="task">
+                <div>
+                    <h2>Задание 1</h2>
+                    <div>
+                        <p>Разделите числа на типы</p>
+                    </div>
+                </div>
+                <div id="numbers"></div>
+                <div class="blocks">
+                    <div id="block-1" class="block">
+                        <h2>Блок 1</h2>
+                    </div>
+                    <div id="block-2" class="block">
+                        <h2>Блок 2</h2>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="divider"></div>
+
+            <!-- Игра 2: Ответ на вопрос -->
+            <div id="task-2" class="task">
+                <h2>Задание 2</h2>
+                <p id="question"></p>
+                <input type="text" id="answer" placeholder="Ваш ответ">
+                <button id="submit-answer">Ответить</button>
+            </div>
+            
+            <div class="divider"></div>
+        </div>
+        <div class="buttons">
+            <button id="next-level">Следующий уровень</button>
+            <button id="restart">Начать заново</button>
+        </div>
         <p id="message"></p>
     </div>
     <script src="../js/game.js" type="module"></script>
