@@ -10,7 +10,7 @@
     <div id="game">
         <div id="timer-container">
             <h1>Уровень: <span id="level">1</span></h1>
-            <p>Оставшееся время: <span id="timer">30</span> сек</p>
+            <p>Оставшееся время: <span id="timer"></span> сек</p>
         </div>
         <div class="tasks">
             <!-- Игра 1: Перетаскивание чисел -->
@@ -24,10 +24,10 @@
                 <div id="numbers"></div>
                 <div class="blocks">
                     <div id="block-1" class="block">
-                        <h2>Блок 1</h2>
+                        <h2 id="title-block-1">Блок 1</h2>
                     </div>
                     <div id="block-2" class="block">
-                        <h2>Блок 2</h2>
+                        <h2 id="title-block-2">Блок 2</h2>
                     </div>
                 </div>
             </div>
@@ -39,7 +39,6 @@
                 <h2>Задание 2</h2>
                 <p id="question"></p>
                 <input type="text" id="answer" placeholder="Ваш ответ">
-                <button id="submit-answer">Ответить</button>
             </div>
             
             <div class="divider"></div>
