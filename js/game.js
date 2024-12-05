@@ -6,7 +6,6 @@ class Game {
     constructor() {
         this.type = "easy";
         this.firstTask = null;
-        this.secondTask = null
     }
 
     init() {
@@ -41,7 +40,6 @@ class Game {
     getClasses() {
         // классы задач
         this.firstTask = new FirstTask(this.type).init();
-        this.secondTask = new SecondTask(this.type).init();
 
         // класс для таймера
         this.timer = new Timer(20, this.onTimerEnd).init();
