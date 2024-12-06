@@ -1,5 +1,4 @@
 import { FirstTask } from "./tasks/firstTask.js";   
-import { SecondTask } from "./tasks/secondTask.js";
 import { Timer } from "./timer.js";
 
 class Game {

@@ -1,5 +1,4 @@
 import { tasksList } from "../utils/tasksList.js";
-import { SecondTask } from "./secondTask.js";
 
 // Класс для работы с первой задачей вне зависимости от уровня сложности
 export class FirstTask {
