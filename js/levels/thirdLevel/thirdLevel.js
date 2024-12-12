@@ -109,28 +109,30 @@ export class ThirdLevel {
         const isEven = this.selectedCondition === "even";
         const activeImages = document.querySelectorAll(".image.active");
     
-        // Подсчёт общего количества активных изображений
-        const totalImages = activeImages.length;
+        const correctImages = Array.from(this.images).filter((image) => {
+            const catCount = parseInt(image.dataset.cats, 10);
+            return isEven ? catCount % 2 === 0 : catCount % 2 !== 0;
+        });
     
-        // Подсчёт количества правильных выборов
-        const correctSelections = Array.from(activeImages).filter((image) => {
+        const correctActiveSelections = Array.from(activeImages).filter((image) => {
             const catCount = parseInt(image.dataset.cats, 10);
             return isEven ? catCount % 2 === 0 : catCount % 2 !== 0;
         }).length;
     
-        // Если изображений нет, вернуть 0 баллов
-        if (totalImages === 0) {
+        const incorrectActiveSelections = activeImages.length - correctActiveSelections;
+
+        if (activeImages.length === 0) {
             this.correctCount = 0;
             return 0;
         }
     
-        // Расчёт процента правильных выборов и преобразование в оценку от 0 до 20
-        const percentage = (correctSelections / totalImages) * 100;
-        const score = Math.round((percentage / 100) * 20);
+        const percentage = (correctActiveSelections / correctImages.length) * 100;
     
-        // Сохранение результата в свойство
+        const penalty = (incorrectActiveSelections / this.images.length) * 20;
+    
+        const score = Math.max(Math.round((percentage / 100) * 20 - penalty), 0);
+    
         this.correctCount = score;
-    
         return score;
     }
 }

@@ -25,21 +25,16 @@ class Game {
     constructor() {
         this.pointsState = defaultState;
 
-        // classes for work with levels
         this.firstLevel = new FirstLevel(getRandomType()).init()
         this.secondLevel = null;
         this.thirdLevel = null;
 
-        // utils classes
         this.timer = new Timer(60 * 4, () => this.onEndTimer()).init()
         this.modal = new Modal();
 
         this.activeLevel = "first";
-
-        // dom element with index level
         this.activeLevelDom = null;
-
-        // dom element with button next level
+        this.buttonRestart = null;
         this.buttonNextLevel = null;
     }
 
@@ -50,11 +45,13 @@ class Game {
 
     getDomElements() {
         this.buttonNextLevel = document.getElementById("next-level")
+        this.buttonRestart = document.getElementById("restart")
         this.activeLevelDom = document.getElementById("level")
     }
 
     addListeners() {
         this.buttonNextLevel.addEventListener('click', () => this.onNextLevel())
+        this.buttonRestart.addEventListener("click", () => this.onClickRestart())
     }
 
     onNextLevel() {
@@ -121,6 +118,10 @@ class Game {
                 this.thirdLevel = new ThirdLevel().init();
                 break;
         }
+    }
+
+    onClickRestart() {
+        window.location.href = "auth.html";
     }
 
     onEndTimer() {

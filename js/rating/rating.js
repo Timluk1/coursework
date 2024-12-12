@@ -120,7 +120,7 @@ class Rating {
     }
 
     onClickRestart() {
-        document.location.href = "game.html"
+        document.location.href = "auth.html"
     }
 }
 
