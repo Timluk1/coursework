@@ -1,0 +1,285 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    font-family: 'Roboto', sans-serif;
+    background: linear-gradient(135deg, #6a11cb, #2575fc);
+    color: #fff;
+    transition: background-color 0.5s ease;
+    background-color: black;
+}
+
+button {
+    all: unset;
+    display: inline-block;
+    cursor: pointer; 
+}
+
+body.modal-active {
+    background-color: rgba(0, 0, 0, 0.7);
+    overflow: hidden;
+}
+
+.game {
+    text-align: center;
+    background: rgba(0, 0, 0, 0.7);
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+    width: 450px;
+    max-width: 100%;
+    overflow: hidden;
+    box-sizing: border-box;
+}
+
+.game h1 {
+    font-size: 28px;
+    margin-bottom: 20px;
+}
+
+.blocks {
+    display: flex;
+    justify-content: space-around;
+    margin: 20px 0;
+}
+
+.block {
+    width: 45%;
+    min-height: 200px;
+    border: 2px solid #fff;
+    padding: 15px;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.2);
+    box-sizing: border-box;
+    overflow-y: auto;
+    transition: background 0.3s;
+}
+
+.block:hover {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+.numbers {
+    margin: 20px 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.number {
+    display: inline-block;
+    margin: 5px;
+    padding: 10px;
+    background-color: #ddd;
+    color: #333;
+    cursor: pointer;
+    border-radius: 5px;
+    box-sizing: border-box;
+    transition: background 0.3s, transform 0.3s;
+}
+
+.number:hover {
+    background-color: #ccc;
+    transform: scale(1.1);
+}
+
+.button-nav {
+    margin: 10px;
+    padding: 12px 25px;
+    background: #4caf50;
+    border: none;
+    border-radius: 5px;
+    font-size: 18px;
+    color: #fff;
+    cursor: pointer;
+    transition: background 0.3s, transform 0.3s;
+}
+
+.button-nav:hover {
+    background: #45a049;
+    transform: scale(1.05);
+}
+
+.game-question {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    background: rgba(0, 0, 0, 0.5);
+    border-radius: 10px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+}
+
+input[type="text"] {
+    padding: 10px;
+    margin: 10px 0;
+    border: none;
+    border-radius: 5px;
+    box-sizing: border-box;
+    font-size: 16px;
+}
+
+
+.buttons {
+    display: flex;
+}
+
+.divider {
+    height: 2px;
+    background: rgba(255, 255, 255, 0.3);
+    margin: 20px 0;
+}
+
+.task {
+    margin: 20px 0;
+    padding: 15px;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.1);
+    text-align: left;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+}
+
+.task__text {
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+
+.task__input {
+    width: 100%;
+    padding: 10px;
+    font-size: 14px;
+    color: #333;
+    border: none;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+
+/* Основные стили модального окна */
+@keyframes modalFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-200px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.modal {
+    position: absolute;
+    opacity: 0;
+    width: 400px;
+    max-width: 90%;
+    background: rgb(0, 0, 0);
+    border-radius: 15px;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.9);
+    z-index: 1000;
+    transition: opacity 0.4s ease, transform 0.4s ease; /* Плавный переход */
+    transform: translateY(-200px);
+}
+
+.modal.active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.modal.closing {
+    opacity: 0;
+    transform: translateY(-200px);
+    pointer-events: none; /* Чтобы избежать кликов во время закрытия */
+}
+
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    display: none;
+}
+
+.modal-overlay.active {
+    display: block;
+    opacity: 1;
+}
+
+.modal__button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+.modal__img {
+    width: 20px;
+    height: 20px;
+    filter: invert(100%);
+}
+
+.images {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 30px;
+    padding: 20px;
+    justify-content: center;
+    align-items: center;
+}
+
+.image {
+    border: 3px solid transparent;
+    border-radius: 10px;
+    overflow: hidden;
+    transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
+    cursor: pointer;
+}
+
+.image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease-in-out;
+    animation: ani 1s ease-in-out;
+}
+
+.image:hover {
+    transform: scale(1.05);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    border-color: #9463f9;
+}
+
+.image.active {
+    border: 3px solid #9463f9;
+    transform: scale(1.1);
+}
+
+.image.active img {
+    transform: scale(1.1);
+}
+
+
+@keyframes ani {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}

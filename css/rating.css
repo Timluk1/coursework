@@ -1,0 +1,116 @@
+body {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    margin: 0;
+    font-family: 'Roboto', sans-serif;
+    background: linear-gradient(135deg, #6a11cb, #2575fc);
+    color: #fff;
+    transition: background-color 0.5s ease;
+    background-color: black;
+}
+
+
+/* Стиль для результатов пользователя */
+.game-results {
+    background: rgba(0, 0, 0, 0.7);
+    padding: 20px;
+    border-radius: 10px;
+    width: 400px;
+    margin: 30px auto;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+}
+
+.game-results__title {
+    font-size: 24px;
+    margin-bottom: 15px;
+    font-weight: bold;
+    color: #fff;
+}
+
+.game-results__content {
+    text-align: left;
+}
+
+.game-results__item {
+    font-size: 18px;
+    margin-bottom: 10px;
+    color: #ccc;
+}
+
+.game-results__value {
+    font-weight: bold;
+    color: #fff;
+}
+
+/* Стиль для блока рейтинга */
+.game-rating {
+    background: rgba(0, 0, 0, 0.7);
+    padding: 20px;
+    border-radius: 10px;
+    width: 400px;
+    margin: 30px auto;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+}
+
+.game-rating__title {
+    font-size: 24px;
+    margin-bottom: 15px;
+    font-weight: bold;
+    color: #fff;
+    text-align: center;
+}
+
+.game-rating__list {
+    display: flex;
+    flex-direction: column;
+}
+
+.game-rating__item {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+    padding: 10px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 5px;
+    transition: background 0.3s;
+}
+
+.game-rating__item:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.game-rating__rank {
+    font-size: 18px;
+    color: #fff;
+}
+
+.game-rating__player {
+    font-size: 18px;
+    color: #fff;
+    font-weight: bold;
+}
+
+.game-rating__score {
+    font-size: 18px;
+    color: #fff;
+}
+
+.button-nav {
+    margin: 10px;
+    padding: 12px 25px;
+    background: #4caf50;
+    border: none;
+    border-radius: 5px;
+    font-size: 18px;
+    color: #fff;
+    cursor: pointer;
+    transition: background 0.3s, transform 0.3s;
+}
+
+.button-nav:hover {
+    background: #45a049;
+    transform: scale(1.05);
+}

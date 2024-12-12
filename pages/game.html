@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game</title>
+    <script type="module" defer src="../js/game.js"></script>
+
+    <link rel="stylesheet" href="../css/game.css">
+</head>
+<body>
+    <div id="modal" class="modal">
+        <button id="close-modal-button" class="modal__button">
+            <img class="modal__img" src="../assets/close.svg" alt="">
+        </button>
+        <p class="modal__text">
+            Перейти обратно
+        </p>
+    </div>
+
+    <div id="modal-overlay" class="modal-overlay"></div>
+
+    <div id="game" class="game">
+        <div id="timer-container">
+            <h1>Уровень: <span id="level">1</span></h1>
+            <p>Оставшееся время: <span id="timer"></span> сек</p>
+        </div>
+        <div class="tasks" id="tasks">
+            <div class="divider"></div>
+
+
+            <div class="divider"></div>
+            
+        </div>
+        <div class="buttons">
+            <button class="button-nav" id="next-level">Следующий уровень</button>
+            <button class="button-nav" id="restart">Начать заново</button>
+        </div>
+    </div>
+
+
+</body>
+</html>
