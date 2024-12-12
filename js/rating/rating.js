@@ -28,7 +28,7 @@ const getUserGameResultsHtml = (props) => {
 
 const getButtonRestart = () => {
     return `
-        <button class="button-nav">Начать заново</button>
+        <button class="button-nav" id="button-restart">Начать заново</button>
     `
 }
 
@@ -95,19 +95,33 @@ const parseUserResultToProps = ({ username, firstLevel, secondLevel, thirdLevel 
 };
 
 class Rating {
-    constructor() {}
+    constructor() {
+        this.buttonRestart = null;
+    }
 
     init() {
+        this.renderElements();
+        this.getDomElements();
+        this.addListeners();
+    }
+
+    getDomElements() {
+        this.buttonRestart = document.getElementById("button-restart");
+    }
+
+    addListeners() {
+        this.buttonRestart.addEventListener("click", () => this.onClickRestart())
+    }
+
+    renderElements() {
         renderUserResults(parseUserResultToProps(localStorageManager.getUserResult()));
         renderRating(localStorageManager.getRatingResult());
         renderButtonRestart();
     }
 
-    getDomElements() {}
-
-    addListeners() {}
-
-    renderElements() {}
+    onClickRestart() {
+        document.location.href = "game.html"
+    }
 }
 
 new Rating().init();
