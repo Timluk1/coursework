@@ -2,10 +2,10 @@ import { clearTask } from "../global.js";
 
 const getRandomArrayLinks = () => {
     const array = [
-        "../assets/oneCats.jpg", 
-        "../assets/twoCats.jpg", 
-        "../assets/threeCats.jpg", 
-        "../assets/fiveCats.jpg"
+        "./assets/oneCats.jpg", 
+        "./assets/twoCats.jpg", 
+        "./assets/threeCats.jpg", 
+        "./assets/fiveCats.jpg"
     ];
     let shuffled = array
         .map(value => ({ value, sort: Math.random() }))

@@ -121,7 +121,7 @@ class Game {
     }
 
     onClickRestart() {
-        window.location.href = "auth.html";
+        window.location.reload();
     }
 
     onEndTimer() {

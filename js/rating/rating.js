@@ -111,6 +111,7 @@ class Rating {
 
     addListeners() {
         this.buttonRestart.addEventListener("click", () => this.onClickRestart())
+        document.addEventListener("keypress", () => this.onClickRestart())
     }
 
     renderElements() {
