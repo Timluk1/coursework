@@ -6,6 +6,17 @@ import { Modal } from "./modal.js"
 import { getRandomType } from "./levels/global.js"
 import { localStorageManager } from "./localStorageManager.js"
 
+const getPointsFirstLevel = (firstLevel) => {
+    const { isCorrect, firstPoint, secondPoint } = firstLevel.checkDistribution()
+    if (isCorrect) {
+        return {
+            points: Number(firstPoint) + Number(secondPoint),
+            maxPoints: 10
+        };
+    }
+    return false;
+}
+
 const defaultState = {
     firstLevel: {
         maxPoints: null,
@@ -25,9 +36,9 @@ class Game {
     constructor() {
         this.pointsState = defaultState;
 
-        this.firstLevel = new FirstLevel(getRandomType()).init()
+//        this.firstLevel = new FirstLevel(getRandomType()).init()
         this.secondLevel = null;
-        this.thirdLevel = null;
+        this.thirdLevel = new ThirdLevel().init();
 
         this.timer = new Timer(60 * 4, () => this.onEndTimer()).init()
         this.modal = new Modal();
@@ -36,6 +47,8 @@ class Game {
         this.activeLevelDom = null;
         this.buttonRestart = null;
         this.buttonNextLevel = null;
+
+        this.gameComplete = false;
     }
 
     init() {
@@ -57,34 +70,37 @@ class Game {
     onNextLevel() {
         switch (this.activeLevel) {
             case "first":
-                // isCorrect if all numbers in blocks, firstPoint and secondPoint
-                const { isCorrect, firstPoint, secondPoint } = this.firstLevel.checkDistribution()
-                if (isCorrect) {
-                    this.pointsState.firstLevel = {
-                        points: Number(firstPoint) + Number(secondPoint),
-                        maxPoints: 10
-                    };
+                const points = getPointsFirstLevel(this.firstLevel)
+                if (points) {
+                    this.pointsState.firstLevel = points;
 
+                    this.modal.openModal()
+                    this.modal.changeModalText(`Баллы за первый уровень: ${points.points} из ${points.maxPoints} баллов`)
+                    
                     this.changeActiveLevel("second")
                 } else {
-                    // open modal with message
                     this.modal.changeModalText("Вы не добавили все числа в ячейки, чтобы перейти на следующий уровень. Пожалуйста, попробуйте еще раз")
                     this.modal.openModal()
                 }
                 break;
             case "second":
                 if (!this.secondLevel.inputIsClear()) {
+                    let modalMessage = ""
                     if (this.secondLevel.checkCorrectAnswer()) {
                         this.pointsState.secondLevel = {
                             points: 10,
                             maxPoints: 10
                         };
+                        modalMessage = "Вы получили за второй уровень: 10 из 10 баллов"
                     } else {
                         this.pointsState.secondLevel = {
                             points: 0,
                             maxPoints: 10
                         };
+                        modalMessage = "Вы получили за второй уровень: 0 из 10 баллов"
                     }
+                    this.modal.changeModalText(modalMessage)
+                    this.modal.openModal()
 
                     this.changeActiveLevel("third")
                 } else {
@@ -98,13 +114,16 @@ class Game {
                     points: this.thirdLevel.calculateCorrectSelections(),
                     maxPoints: 20
                 };
-                
+    
                 localStorageManager.addResultToRating(this.pointsState, localStorageManager.getUser());
-                localStorageManager.addUserResult({username: localStorageManager.getUser(), ...this.pointsState })
-                window.location = "rating.html"
+                localStorageManager.addUserResult({ username: localStorageManager.getUser(), ...this.pointsState })
+                this.gameComplete = true;
+
+                window.location.href = "rating.html"
                 break;
         }
     }
+
 
     changeActiveLevel(newLevel) {
         this.activeLevel = newLevel;
