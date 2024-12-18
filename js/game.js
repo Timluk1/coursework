@@ -36,9 +36,9 @@ class Game {
     constructor() {
         this.pointsState = defaultState;
 
-//        this.firstLevel = new FirstLevel(getRandomType()).init()
+        this.firstLevel = new FirstLevel(getRandomType()).init()
         this.secondLevel = null;
-        this.thirdLevel = new ThirdLevel().init();
+        this.thirdLevel = null;
 
         this.timer = new Timer(60 * 4, () => this.onEndTimer()).init()
         this.modal = new Modal();
