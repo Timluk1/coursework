@@ -6,6 +6,7 @@ export class Modal {
         this.modalText = null;
 
         this.modalText = modalText;
+        this.modalOpen = false;
 
         this.getDomElements();
         this.addListeners();
@@ -32,22 +33,22 @@ export class Modal {
             console.log("Не найдена модалка");
             return;
         }
+        this.modalOpen = true;
         this.modal.classList.add("active");
         this.modalOverlay.classList.add("active");
     }
-
+    
     closeModal() {
         if (!this.modal) {
             console.log("Не найдена модалка");
             return;
         }
-
+        this.modalOpen = false;
         this.modal.classList.add("closing");
-
         setTimeout(() => {
             this.modal.classList.remove("active", "closing");
             this.modalOverlay.classList.remove("active");
         }, 400);
-
     }
+    
 }

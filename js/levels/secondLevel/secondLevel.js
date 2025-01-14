@@ -43,4 +43,8 @@ export class SecondLevel {
     inputIsClear() {
         return this.getInputValue() === ""
     }
+
+    getAnswer() {
+        return this.answer;
+    }
 }

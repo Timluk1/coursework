@@ -5,6 +5,7 @@ import { Timer } from "./timer.js"
 import { Modal } from "./modal.js"
 import { getRandomType } from "./levels/global.js"
 import { localStorageManager } from "./localStorageManager.js"
+import { ButtonNextLevel } from "./buttons/buttonNextLevel.js"
 
 const getPointsFirstLevel = (firstLevel) => {
     const { isCorrect, firstPoint, secondPoint } = firstLevel.checkDistribution()
@@ -46,7 +47,7 @@ class Game {
         this.activeLevel = "first";
         this.activeLevelDom = null;
         this.buttonRestart = null;
-        this.buttonNextLevel = null;
+        this.buttonNextLevel = new ButtonNextLevel(() => this.onNextLevel()).init();
 
         this.gameComplete = false;
     }
@@ -57,14 +58,12 @@ class Game {
     }
 
     getDomElements() {
-        this.buttonNextLevel = document.getElementById("next-level")
         this.buttonRestart = document.getElementById("restart")
         this.activeLevelDom = document.getElementById("level")
     }
 
     addListeners() {
-        this.buttonNextLevel.addEventListener('click', () => this.onNextLevel())
-        this.buttonRestart.addEventListener("click", () => this.onClickRestart())
+        this.buttonRestart.addEventListener("click", () => this.onClickRestart());
     }
 
     onNextLevel() {
@@ -72,12 +71,14 @@ class Game {
             case "first":
                 const points = getPointsFirstLevel(this.firstLevel)
                 if (points) {
-                    this.pointsState.firstLevel = points;
-
-                    this.modal.openModal()
-                    this.modal.changeModalText(`Баллы за первый уровень: ${points.points} из ${points.maxPoints} баллов`)
-                    
-                    this.changeActiveLevel("second")
+                    this.buttonNextLevel.changeTheme();
+                    setTimeout(() => {
+                        this.pointsState.firstLevel = points;
+                        this.modal.openModal()
+                        this.modal.changeModalText(`Баллы за первый уровень: ${points.points} из ${points.maxPoints} баллов`)
+                        this.buttonNextLevel.deleteTheme();
+                        this.changeActiveLevel("second")
+                    }, 2000)
                 } else {
                     this.modal.changeModalText("Вы не добавили все числа в ячейки, чтобы перейти на следующий уровень. Пожалуйста, попробуйте еще раз")
                     this.modal.openModal()
@@ -85,7 +86,8 @@ class Game {
                 break;
             case "second":
                 if (!this.secondLevel.inputIsClear()) {
-                    let modalMessage = ""
+                    let modalMessage = "";
+                    let correctAns = this.secondLevel.getAnswer();
                     if (this.secondLevel.checkCorrectAnswer()) {
                         this.pointsState.secondLevel = {
                             points: 10,
@@ -99,7 +101,7 @@ class Game {
                         };
                         modalMessage = "Вы получили за второй уровень: 0 из 10 баллов"
                     }
-                    this.modal.changeModalText(modalMessage)
+                    this.modal.changeModalText(modalMessage + `\nПравильный ответ на второй уровень: ${correctAns}`)
                     this.modal.openModal()
 
                     this.changeActiveLevel("third")
